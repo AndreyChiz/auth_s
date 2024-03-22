@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class Settings(BaseSettings):
     DB_HOST: str
     DB_PORT: int
@@ -15,6 +16,5 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-# print(settings)
-# print(settings.DATABASE_URL_asyncpg)
-
+print(settings)
+print(settings.DATABASE_URL_asyncpg)

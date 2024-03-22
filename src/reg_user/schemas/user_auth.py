@@ -1,23 +1,29 @@
-import uuid
-from pydantic import BaseModel, EmailStr
-
 import re
 
-from pydantic import EmailStr, Field, field_validator
+from pydantic import EmailStr, Field, field_validator, field_serializer, SecretStr
 
 from ._base import CustomModel
 
-STRONG_PASSWORD_PATTERN = re.compile(r"^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,128}$")
+STRONG_PASSWORD_PATTERN = re.compile(
+    r"^(?=.*[\d])(?=.*[!_@#$%^&*])[\w!_@#$%^&*]{6,128}$"
+)
 
-
-class AuthUser(CustomModel):
+class UserAuthResponse(CustomModel):
+    """Created user data"""
+    username: str = Field(None, min_length=3, max_length=32)
     email: EmailStr
-    password: str = Field(min_length=6, max_length=128)
+
+class UserAuth(UserAuthResponse):
+    password: SecretStr = Field(min_length=6, max_length=128)
+
+    @field_serializer("password", when_used="always")
+    def dump_secret(self, v):
+        return v.get_secret_value()
 
     @field_validator("password", mode="after")
     @classmethod
-    def valid_password(cls, password: str) -> str:
-        if not re.match(STRONG_PASSWORD_PATTERN, password):
+    def valid_password(cls, password: SecretStr) -> str:
+        if not re.match(STRONG_PASSWORD_PATTERN, password.get_secret_value()):
             raise ValueError(
                 "Password must contain at least "
                 "one lower character, "

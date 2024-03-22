@@ -1,5 +1,6 @@
 __all__ = (
-    "AuthUser"
+    "UserAuth"
+    "UserAuthResponse"
 )
 
-from .auth_user import AuthUser
+from .user_auth import UserAuth, UserAuthResponse

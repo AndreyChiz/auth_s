@@ -5,6 +5,7 @@ from sqlalchemy import (
     DateTime,
     Identity,
     Integer,
+    LargeBinary,
     String,
     func,
 )
@@ -25,7 +26,7 @@ class Base(DeclarativeBase):
 class CustomType:
     # required
     email_type = Annotated[str, mapped_column(String(250))]
-    password_type = Annotated[str, mapped_column(String(128))]
+    password_type = Annotated[LargeBinary, mapped_column(LargeBinary)]
 
     # optional
     id_type = Annotated[int, mapped_column(Integer, Identity(), primary_key=True)]
@@ -36,8 +37,11 @@ class CustomType:
         mapped_column(DateTime, server_default=func.now(), nullable=False),
     ]
     updated_at_type = Annotated[
-        DateTime, mapped_column("updated_at", DateTime, onupdate=func.now())
+        DateTime,
+        mapped_column("updated_at", DateTime, onupdate=func.now(), nullable=True),
     ]
+
+    # not used
     uuid = Annotated[
         uuid.UUID,
         mapped_column(
