@@ -2,14 +2,14 @@
 .idea
 hbfr_bot_env
 parcer.ipynb
-
+*.code-workspace
 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
+.vscode/
 
 
 # C extensions
