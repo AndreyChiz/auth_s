@@ -16,4 +16,5 @@ async def register_user(user_credentials: UserAuth = Depends(check_unique_user_d
         username=user_credentials.username, email=user_credentials.email
     )
 
-                
+# @riuter.get("/me")
+# async def get_me():
