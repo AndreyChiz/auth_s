@@ -13,12 +13,12 @@ class RegUserBaseException(HTTPException):
         super().__init__(status_code=self.STATUS_CODE, detail=self.DETAIL, **kwargs)
 
 
-class EmailTaken(RegUserBaseException):
+
+class UserAlreadyExist(RegUserBaseException):
     STATUS_CODE = status.HTTP_400_BAD_REQUEST
-    DETAIL = ErrorCode.EMAIL_TAKEN
-
-class UsernameTaken(RegUserBaseException):
-    STATUS_CODE = status.HTTP_400_BAD_REQUEST
-    DETAIL = ErrorCode.USERNAME_TAKEN
+    DETAIL = ErrorCode.USER_ALLREADY_EXIST
 
 
+class UserNotExist(RegUserBaseException):
+    STATUS_CODE = status.HTTP_404_NOT_FOUND
+    DETAIL = ErrorCode.AUTHORIZATION_FAILED

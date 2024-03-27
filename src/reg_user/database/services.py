@@ -13,13 +13,14 @@ async def get_user_by_email(email: str):
 
     return await fetch_one(select_query)
 
-async def get_user_by_username(username: str):
-    select_query = select(User).where(User.username == username)
 
+async def get_user_by_username(username: str):
+    
+    select_query = select(User).where(User.username == username)
     return await fetch_one(select_query)
 
 
-async def write_user(email: str, password: str, username: str = None) -> dict[str, Any] | None:
+async def write_user(email: str, password: str, username: str) -> dict[str, Any] | None:
     insert_query = (
         insert(User)
         .values(
@@ -32,5 +33,4 @@ async def write_user(email: str, password: str, username: str = None) -> dict[st
         )
         .returning(User)  # TODO check
     )
-
     return await fetch_one(insert_query)

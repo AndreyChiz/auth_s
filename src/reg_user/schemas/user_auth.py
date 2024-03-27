@@ -8,10 +8,13 @@ STRONG_PASSWORD_PATTERN = re.compile(
     r"^(?=.*[\d])(?=.*[!_@#$%^&*])[\w!_@#$%^&*]{6,128}$"
 )
 
+
 class UserAuthResponse(CustomModel):
     """Created user data"""
-    username: str = Field(None, min_length=3, max_length=32)
+
+    username: str = Field(..., min_length=3, max_length=32)
     email: EmailStr
+
 
 class UserAuth(UserAuthResponse):
     password: SecretStr = Field(min_length=6, max_length=128)

@@ -1,7 +1,8 @@
 class ErrorCode:
     BASE_REG_USER_ERROR = ""
     AUTHENTICATION_REQUIRED = "Authentication required."
-    AUTHORIZATION_FAILED = "Authorization failed. User has no access."
+    AUTHORIZATION_FAILED = "Authorization failed. User not exist, or has no access."
+    USER_ALLREADY_EXIST = "User with this email or login already exist"
     INVALID_TOKEN = "Invalid token."
     INVALID_CREDENTIALS = "Invalid credentials."
     EMAIL_TAKEN = "Email is already taken."

@@ -30,7 +30,7 @@ class CustomType:
 
     # optional
     id_type = Annotated[int, mapped_column(Integer, Identity(), primary_key=True)]
-    username_type = Annotated[str, mapped_column(String(32), nullable=True)]
+    username_type = Annotated[str, mapped_column(String(32), nullable=False)]
     role_type = Annotated[str, mapped_column(String(10), default="user")]
     created_at_type = Annotated[
         DateTime,
