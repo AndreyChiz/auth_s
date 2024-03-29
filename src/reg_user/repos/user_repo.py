@@ -4,9 +4,10 @@ from ..database import services
 
 class User:
 
-    def __init__(self, username: str = None, email: str = None):
+    def __init__(self, username: str = None, email: str = None, password: str = None):
         self.username = username
         self.email = email
+        self.password = password
 
     async def __call__(self):
         await self._load_user_data()
@@ -21,12 +22,12 @@ class User:
         return requests[by_what]
 
     @staticmethod
-    async def create_user(**kwargs) -> dict:
+    async def create_user(self) -> dict:
         """Create new user"""
         return await services.write_user(
-            username=kwargs.get("username"),
-            email=kwargs.get("email"),
-            password=kwargs.get("password"),
+            username=self.username,
+            email=self.email,
+            password=self.password,
         )
 
     def _unpuck_db_data(self, **kwargs):
@@ -44,6 +45,8 @@ class User:
         if data:= await self._get_user_data():
             self._unpuck_db_data(**data)
         return data
+    
+    
 
 
 async def main():

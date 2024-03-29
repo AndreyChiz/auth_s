@@ -15,7 +15,7 @@ async def get_user_by_email(email: str):
 
 
 async def get_user_by_username(username: str):
-    
+
     select_query = select(User).where(User.username == username)
     return await fetch_one(select_query)
 
@@ -27,7 +27,7 @@ async def write_user(email: str, password: str, username: str) -> dict[str, Any]
             {
                 "username": username,
                 "email": email,
-                "password": hash_password(password),
+                "password": password,
                 # "created_at": datetime.datetime.now(datetime.UTC),  # TODO check
             }
         )

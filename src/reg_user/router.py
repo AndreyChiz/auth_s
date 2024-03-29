@@ -6,8 +6,8 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from .schemas import UserAuth, UserAuthResponse
 
 
-from .dependencies import is_user_exist, is_user_not_exist
-from .services import create_user
+from .dependencies import is_user_not_exist
+from .services import create_user, login_user
 
 router = APIRouter()
 # security = HTTPBasic()
@@ -24,7 +24,8 @@ async def register_user(user_credentials: UserAuth = Depends(is_user_not_exist))
 
 
 @router.post("/login")
-async def authentification(user_credentials: UserAuth = Depends(is_user_exist)):
+async def login(user_credentials: UserAuth):
+    await login_user(user_credentials)
     return UserAuthResponse(
         username=user_credentials.username, email=user_credentials.email
     )
