@@ -33,13 +33,16 @@ class User:
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    async def load_data_to_instance(self):
-        data = None
+    async def _get_user_data(self):
         if self.username:
-            data = await self.get_user("by_name", self.username)
-        elif self.email:
-            data = await self.get_user("by_email", self.email)
-        self._unpuck_db_data(**data) if data else None
+            return await self.get_user("by_name", self.username)
+        if self.email:
+            return await self.get_user("by_email", self.email)
+
+    async def load_data_to_instance(self):
+
+        if data:= await self._get_user_data():
+            self._unpuck_db_data(**data)
         return data
 
 
