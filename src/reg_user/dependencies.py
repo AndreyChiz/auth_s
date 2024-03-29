@@ -24,6 +24,5 @@ async def is_user_not_exist(user_auth_data: UserAuth):
         await user_by_name.load_data_to_instance()
         or await user_by_email.load_data_to_instance()
     ):
-        print("hrer")
         raise UserAlreadyExist
     return user_auth_data

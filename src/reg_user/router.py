@@ -10,7 +10,7 @@ from .dependencies import is_user_exist, is_user_not_exist
 from .services import create_user
 
 router = APIRouter()
-security = HTTPBasic()
+# security = HTTPBasic()
 
 
 @router.post(
